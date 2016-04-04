@@ -3,7 +3,8 @@ import Article from './Article'
 
 class AricleList extends Component {
     state = {
-        selectedArticles: []
+        selectedArticles: [],
+        openedId: -1
     }
 
     render() {
@@ -23,6 +24,9 @@ class AricleList extends Component {
                     article = {article}
                     isSelected = {this.state.selectedArticles.includes(article.id)}
                     selectArticle = {this.selectArticle}
+                    openOnlyMe = {this.openOnlyMe}
+                    openedId = {this.state.openedId}
+                    me = "article"
                 />
             </li>
         )
@@ -31,6 +35,12 @@ class AricleList extends Component {
     selectArticle = (id) => {
         this.setState({
             selectedArticles: this.state.selectedArticles.concat(id)
+        })
+    }
+
+    openOnlyMe = (id) => {
+        this.setState({
+            openedId: id
         })
     }
 }
