@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
 import { findDOMNode } from 'react-dom'
 import toggleOpen from '../HOC/toggleOpen'
+import singleOpened from '../HOC/singleOpened'
 
 class Article extends Component {
 
@@ -24,13 +25,6 @@ class Article extends Component {
 */
     }
 
-    componentWillReceiveProps(nextProps) {
-//        console.log("componentWillReceiveProps: id = "+nextProps.article.id + " isOpen ? "+nextProps.isOpen);
-        if (nextProps.isOpen) 
-            if ( nextProps.article.id !== nextProps.openedId )
-                nextProps.toggleOpen()
-    }
-
     handleSelect = (ev) => {
         const { article: {id}, selectArticle } = this.props
         selectArticle(id)
@@ -40,7 +34,7 @@ class Article extends Component {
         if (!this.props.isOpen) return null
         const { article } = this.props
 
-        if ( article.id !== this.props.openedId ) 
+        if ( !this.props.isSingleOpened )
             return null
 
         return (
@@ -49,22 +43,20 @@ class Article extends Component {
                 <CommentList 
                     comments = {article.comments}
                     ref = "commentList"
-                    me = "list"
-                    id = {article.id}
                 />
             </section>
         )
     }
 
     handleClick = (ev) => {
-        console.log("handleClick: id = "+this.props.article.id + " isOpen ? "+this.props.isOpen);
         if ( !this.props.isOpen ) {
-            const { article: {id}, openOnlyMe } = this.props
-            openOnlyMe(id);
+            const { article: {id}, setSingleOpen } = this.props
+            setSingleOpen(id);
         }
 
         this.props.toggleOpen()
     }
 }
 
-export default toggleOpen(Article)
+export default toggleOpen(singleOpened(Article))
+//export default toggleOpen(Article)

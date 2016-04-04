@@ -24,9 +24,8 @@ class AricleList extends Component {
                     article = {article}
                     isSelected = {this.state.selectedArticles.includes(article.id)}
                     selectArticle = {this.selectArticle}
-                    openOnlyMe = {this.openOnlyMe}
+                    setSingleOpen = {this.setSingleOpen}
                     openedId = {this.state.openedId}
-                    me = "article"
                 />
             </li>
         )
@@ -38,7 +37,7 @@ class AricleList extends Component {
         })
     }
 
-    openOnlyMe = (id) => {
+    setSingleOpen = (id) => {
         this.setState({
             openedId: id
         })
